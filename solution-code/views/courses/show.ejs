@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <h2><%= course.name %></h2>
+      <h4>Starting Date: <%= moment(course.startingDate).format('MMMM Do YYYY') %></h4>
+      <h4>End Date: <%= moment(course.endDate).format('MMMM Do YYYY') %></h4>
+    </div>
+    <div class="col-md-2">
+    <% if (currentUser.role === "Teacher Assistant") { %>
+      <form class="" action="/courses/<%=course.id %>/delete" method="Post">
+        <button class="btn btn-danger delete-btn" type="submit"/>Delete Course</button>
+      </form>
+      <form class="" method="get" action="/courses/<%= course._id %>/edit">
+        <button class="btn btn-primary edit-btn">Edit Course</button>
+      </form>
+     <% } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 new-student">
+      <p>Add students to course</p>
+      <form class="add-student-form" action="/courses/<%=course.id%>/add-student" method="post">
+       <div class="">
+         <select class="form-control medium" name="student_id" >
+           <% available.forEach((a_student)=>{ %>
+             <option value="<%=a_student._id%>"><%= a_student.name %></option>
+           <% }) %>
+         </select>
+       </div>
+        <button class="btn btn-success add-student-btn "type="submit" name="" value="">Add Student</button>
+      </form>
+    </div>
+  </div>
+    <div class="row">
+      <div class="enrolled">
+        <h4>Students enrolled in this course:</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="col-md-1">Name</th>
+              <th class="col-md-1">Family Name</th>
+              <th class="col-md-1">City</th>
+              <th class="col-md-1">Actions</th>
+          </thead>
+          <tbody>
+            <% students.forEach((student) =>{ %>
+          <tr>
+             <td><%=student.name%></td>
+             <td><%=student.familyName%></td>
+             <td><%=student.city%></td>
+             <% if (currentUser.role === "Teacher Assistant"){ %>
+               <td>
+                 <form action="/courses/<%= course._id %>/remove-student" method="POST">
+                   <input type="hidden" name="student_id" value="<%= student._id%>">
+                   <button class="btn btn-warning" type="submit">Remove Student</button>
+                 </form>
+               </td>
+               <% } %>
+         </tr>
+         <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+ </div>

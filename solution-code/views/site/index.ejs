@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row main-color">
+      <section class="col-md-4-offset-4 center black" >
+        <img class="logo" src="images/ih-logo.jpg" alt="Ironhack Logo">
+        <div class="row">
+          <p>Welcome to The Ironhack platform</a>
+          <form class="login-form" action="/login" method="post">
+            <% if (message.length > 0) { %>
+              <div class="error-message"><%= message %></div>
+            <% } %>
+            <label for="username">Username</label>
+            <input type="text" name="username" >
+            <label for="password">Password</label>
+            <input type="password" name="password" >
+            <div class="">
+              <button>Log in</button>
+            </div>
+          </form>
+          <div class="facebook">
+            <a class="btn btn-block btn-social btn-facebook facebook" href="/auth/facebook">
+                <img src="images/fb-span.png" alt="">
+              Log in with facebook</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
